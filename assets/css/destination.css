@@ -38,13 +38,14 @@ main div * {
   background-color: #545454;
 }
 
-#main-container {
-  width: 1400px;
-}
-
 #filters {
 height: 600px;
 width: 300px;
+}
+
+#map {
+  height: 600px;
+  width: 1000px;
 }
 
 #map-page2 {
@@ -52,8 +53,14 @@ width: 300px;
   width: 800px;
 }
 
-#right {
-  width: 100px;
+#submit {
+  height: 100px;
+  width: 300px;
+}
+
+#random {
+  height: 100px;
+  width: 1000px;
 }
 
 #city-cards {
@@ -61,3 +68,7 @@ width: 300px;
   width: 100vw;
 }
 
+#main-container {
+  width: 900;
+
+}
