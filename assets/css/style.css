@@ -2,21 +2,25 @@
   padding: 0;
   border: 0;
   margin: 0;
+
 }
 
 body {
   height: 100vh;
   background-color: #343434;
+
 }
 
 header {
   background-color: #1f1f1f;
   width: 100%;
   color: #E0E0E0;
+
 }
 
 header * {
   display: block;
+
 }
 
 main {
@@ -38,26 +42,22 @@ main div * {
   background-color: #545454;
 }
 
-#main-container {
-  width: 1400px;
-}
-
 #filters {
 height: 600px;
 width: 300px;
 }
 
-#map-page2 {
+#map {
   height: 600px;
-  width: 800px;
+  width: 1000px;
 }
 
-#right {
-  width: 100px;
+#submit {
+  height: 100px;
+  width: 300px;
 }
 
-#city-cards {
-  display: block;
-  width: 100vw;
+#random {
+  height: 100px;
+  width: 1000px;
 }
-
