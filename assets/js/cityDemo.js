@@ -5,7 +5,7 @@ txtCityName = document.getElementById("city-name");
 txtInputParameters = document.getElementById("input-parameters");
 
 // Global variables / assignments
-const key = APIkey;
+const key = "5ae2e3f221c38a28845f05b6c796cf9acca90ae90403cc8866b3ca2f";
 
 // parameters for city search
 let cityName = "Paris"; //city selected
