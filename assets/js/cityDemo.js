@@ -54,7 +54,7 @@ const getAttractionInfo = function(xid) {
     })
     .then(function (dataAttractInfo) {
       const iName = dataAttractInfo.name;
-      const iImage = dataAttractInfo.image;
+      const iImage = dataAttractInfo.preview.source;
       const iInfo = dataAttractInfo.wikipedia_extracts.text;
       
       return {
