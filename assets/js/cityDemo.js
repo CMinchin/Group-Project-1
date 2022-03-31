@@ -8,8 +8,8 @@ txtInputParameters = document.getElementById("input-parameters");
 const key = "5ae2e3f221c38a28845f05b6c796cf9acca90ae90403cc8866b3ca2f";
 
 // parameters for city search
-let cityName = "London"; //city selected
-let radius = 50000;  // distance from centre searched in metres
+let cityName = "Berlin"; //city selected
+let radius = 5000;  // distance from centre searched in metres
 let limit = 5; // max number of results to display
 let rating = 3;  // popularity of attraction, higher is most popular
 let filterString = "tourist_object"
@@ -89,9 +89,10 @@ function getCityAttractions(lon, lat) {
               const atInfo = document.createElement('li');
               liTest.textContent = dataMore._name;
               image1.src = dataMore._image;
+              image1.width = 150;
               atInfo.textContent = dataMore._info;
               
-              console.log("test info data", dataMore._image);
+              // console.log("test info data", dataMore._image);
               // liNameEl.appendChild(liTest);
               
               newList.appendChild(image1);
