@@ -19,9 +19,9 @@ let filterString = "tourist_object"
 
 txtInputParameters.textContent = "City Name=" + cityName + ".  Radius searched=" + radius + " metres.  Number of results=" + limit + ".  Rating by popularity=" + rating + ". Filter String=" + filterString;
 
-// Get City Thumbnail image from Wikipedia
-const getCityImage = function (city) {
-  const apiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&pilicense=any&prop=pageimages&redirects=0&titles=${city}&origin=*`;
+// Get City Information and Thumbnail image from Wikipedia
+const getCityInfo = function (city) {
+  const apiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&pilicense=any&prop=extracts|pageimages&explaintext=1&exsentences=3&redirects=0&titles=${city}&origin=*`;
 
   return fetch(apiUrl)
     .then(function (response) {
@@ -30,7 +30,13 @@ const getCityImage = function (city) {
     .then(function (dataWiki) {
       if (dataWiki) {
         const pageID = Object.keys(dataWiki.query.pages);
-              
+       
+        const cityExtract = dataWiki.query.pages[pageID[0]].extract;
+        const cityPara = document.createElement('p');
+        cityPara.textContent = cityExtract.replace('( (listen))', ' ');
+        cityPara.textContent = cityExtract.replace('(listen))', ')');
+        cntCityInfo.appendChild(cityPara);
+        
         const cityImage = document.createElement('img');
         cityImage.src = dataWiki.query.pages[pageID[0]].thumbnail.source;
         cityImage.width = 200;
@@ -38,28 +44,6 @@ const getCityImage = function (city) {
       }
     })
 }
-
-// Get City Information from Wikipedia - note 3 sentences of extract in this call
-const getCityInfo = function (city) {
-  const apiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=1&exsentences=3&redirects=0&titles=${city}&origin=*`;
-
-  return fetch(apiUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (dataWiki) {
-      if (dataWiki) {
-        const pageID = Object.keys(dataWiki.query.pages);
-        const cityExtract = dataWiki.query.pages[pageID[0]].extract;
-
-        const cityPara = document.createElement('p');
-        cityPara.textContent = cityExtract.replace('( (listen))', ' ');
-        cityPara.textContent = cityExtract.replace('(listen))', ')');
-        cntCityInfo.appendChild(cityPara);
-      }
-    })
-}
-
 
 const getAttractions = function (city) {
   const apiUrl = `https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&apikey=${key}`;
@@ -138,6 +122,5 @@ function getCityAttractions(lon, lat) {
     })
 }
 
-getCityImage(cityName);
 getCityInfo(cityName);
 getAttractions(cityName);
