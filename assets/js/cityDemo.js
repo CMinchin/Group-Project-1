@@ -1,13 +1,14 @@
 // DOM manipulation selectors
-cntDemoContainer = document.getElementById("demo-container");
-lstDemoList = document.querySelector("#demo-list-holder");
-txtCityName = document.getElementById("city-name");
-txtInputParameters = document.getElementById("input-parameters");
+const cntDemoContainer = document.getElementById("demo-container");
+const lstDemoList = document.querySelector("#demo-list-holder");
+const txtCityName = document.getElementById("city-name");
+const txtInputParameters = document.getElementById("input-parameters");
+const cntCityInfo = document.getElementById("city-info");
 
 // Global variables / assignments
 const key = "5ae2e3f221c38a28845f05b6c796cf9acca90ae90403cc8866b3ca2f";
 
-// parameters for city search
+// replace with parameters from city and filter selection
 let cityName = "Berlin"; //city selected
 let radius = 5000;  // distance from centre searched in metres
 let limit = 5; // max number of results to display
@@ -16,11 +17,51 @@ let filterString = "tourist_object"
 // items from category list for which to search, comma separate no spaces
 // category list is depicted at https://opentripmap.io/catalog
 
-
 txtInputParameters.textContent = "City Name=" + cityName + ".  Radius searched=" + radius + " metres.  Number of results=" + limit + ".  Rating by popularity=" + rating + ". Filter String=" + filterString;
 
+// Get City Thumbnail image from Wikipedia
+const getCityImage = function (city) {
+  const apiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&pilicense=any&prop=pageimages&redirects=0&titles=${city}&origin=*`;
 
-const getCityCoordinates = function (city) {
+  return fetch(apiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (dataWiki) {
+      if (dataWiki) {
+        const pageID = Object.keys(dataWiki.query.pages);
+              
+        const cityImage = document.createElement('img');
+        cityImage.src = dataWiki.query.pages[pageID[0]].thumbnail.source;
+        cityImage.width = 200;
+        cntCityInfo.appendChild(cityImage);
+      }
+    })
+}
+
+// Get City Information from Wikipedia - note 3 sentences of extract in this call
+const getCityInfo = function (city) {
+  const apiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=1&exsentences=3&redirects=0&titles=${city}&origin=*`;
+
+  return fetch(apiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (dataWiki) {
+      if (dataWiki) {
+        const pageID = Object.keys(dataWiki.query.pages);
+        const cityExtract = dataWiki.query.pages[pageID[0]].extract;
+
+        const cityPara = document.createElement('p');
+        cityPara.textContent = cityExtract.replace('( (listen))', ' ');
+        cityPara.textContent = cityExtract.replace('(listen))', ')');
+        cntCityInfo.appendChild(cityPara);
+      }
+    })
+}
+
+
+const getAttractions = function (city) {
   const apiUrl = `https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&apikey=${key}`;
 
   return fetch(apiUrl)
@@ -33,8 +74,8 @@ const getCityCoordinates = function (city) {
       // Print to page
       txtCityName.textContent = "Input Parameters for: " + dataCity.name + ", " + dataCity.country;
       const pPopEL = document.createElement('p');
-      pPopEL.textContent = "City Population: " + dataCity.population;
-      cntDemoContainer.appendChild(pPopEL);
+      pPopEL.textContent = "City Population: " + dataCity.population.toLocaleString();
+      cntCityInfo.appendChild(pPopEL);
       getCityAttractions(longitude, latitude);
     })
 }
@@ -42,29 +83,24 @@ const getCityCoordinates = function (city) {
 const getAttractionInfo = function(xid) {
   const apiUrlInfo = `https://api.opentripmap.com/0.1/en/places/xid/${xid}?apikey=${key}`
 
-  information = {
-    name: "",
-    image: "",
-    info: "",
-  };
-
     return fetch(apiUrlInfo)
     .then(function (response) {
       return response.json();
     })
-    .then(function (dataAttractInfo) {
-      const iName = dataAttractInfo.name;
-      const iImage = dataAttractInfo.preview.source;
-      const iInfo = dataAttractInfo.wikipedia_extracts.text;
+      .then(function (dataAttractInfo) {
+        if (dataAttractInfo) {
+          const iName = dataAttractInfo.name;
+          const iImage = dataAttractInfo.preview.source;
+          const iInfo = dataAttractInfo.wikipedia_extracts.text;
       
-      return {
-        _name: iName,
-        _image: iImage,
-        _info: iInfo,
-      };
+          return {
+            _name: iName,
+            _image: iImage,
+            _info: iInfo,
+          };
+        }
     })
 }
-
 
 function getCityAttractions(lon, lat) {
   const apiUrl = `https://api.opentripmap.com/0.1/en/places/radius?radius=${radius}&lon=${lon}&lat=${lat}&kinds=${filterString}&rate=${rating}&format=json&limit=${limit}&apikey=${key}`;
@@ -77,9 +113,9 @@ function getCityAttractions(lon, lat) {
     })
     .then(function (dataAttract) {
       for (let i = 0; i < dataAttract.length; i++) {
-        if (dataAttract[i].wikidata || 'true') {
+        if (dataAttract[i].wikidata) {
           const liNameEl = document.createElement('li');
-          liNameEl.textContent = dataAttract[i].name + " is " + (dataAttract[i].dist / 1000).toFixed(2) + " km from city centre at long/lat " + dataAttract[i].point.lon + "/" + dataAttract[i].point.lat + " with wikidata reference " + dataAttract[i].wikidata;
+          liNameEl.textContent = dataAttract[i].name + " is " + (dataAttract[i].dist / 1000).toFixed(2) + " km from city centre at long/lat " + dataAttract[i].point.lon + "/" + dataAttract[i].point.lat
           let xid = dataAttract[i].xid;
           getAttractionInfo(xid)
             .then(function (dataMore) {
@@ -92,9 +128,6 @@ function getCityAttractions(lon, lat) {
               image1.width = 150;
               atInfo.textContent = dataMore._info;
               
-              // console.log("test info data", dataMore._image);
-              // liNameEl.appendChild(liTest);
-              
               newList.appendChild(image1);
               newList.appendChild(atInfo);
               liNameEl.appendChild(newList);
@@ -105,4 +138,6 @@ function getCityAttractions(lon, lat) {
     })
 }
 
-getCityCoordinates(cityName);
+getCityImage(cityName);
+getCityInfo(cityName);
+getAttractions(cityName);
