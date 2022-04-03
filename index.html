@@ -4,36 +4,126 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/style.css"></link>
-
+  <!-- <link rel="stylesheet" href="./assets/css/style.css"></link> -->
+  <link rel="stylesheet" href="./assets/css/maps.css"></link>
+  
   <title>Fun in the City</title>
 </head>
+
 <body>
-  <header>
-    <h1>Vacation Selector</h1>
-    <img src="./assets/images/image-1.png" width="50px" height="50px">
-  </header>
+  
+  
 
-  <main>
-    <div id="container">
-      <div id="filters">
-        <h2>Filters</h2>
 
-      </div>
+<div class="wrapper">
+  <div class="inner-wrapper">
+
+    <aside>
+      <form>
+        <!-- 
+          Categories We Can Use:
+          Time Spent (Slider)
+          Accomodation (On/Off)
+          Atractions Type 
+        -->
+        <h3>Filters:</h3>
+
+        <label>Include these attractions:</label>
+        <div class="check-row">
+          <div class="check-col">
+            <label> Adult: </label>  
+            <input type="checkbox" data-id="adult" class="checkbox">
+          </div>
+          <div class="check-col">
+            <label> Amusements: </label>  
+            <input type="checkbox" data-id="amusements" class="checkbox">  
+          </div>  
+        </div>
+        <div class="check-row">
+          <div class="check-col">
+            <label> Architecture: </label>  
+            <input type="checkbox" data-id="architecture" class="checkbox">
+          </div>
+          <div class="check-col">  
+            <label> Cultural: </label>  
+            <input type="checkbox" data-id="cultural" class="checkbox">    
+          </div>
+        </div>
+        <div class="check-row">
+          <div class="check-col">
+            <label> Historical: </label>  
+            <input type="checkbox" data-id="historic" class="checkbox">
+          </div>
+          <div class="check-col">
+            <label> Industrial: </label>  
+            <input type="checkbox" data-id="industrial_facilities" class="checkbox"> 
+          </div>   
+        </div>
+        <div class="check-row">
+          <div class="check-col">
+            <label> Natural: </label>  
+            <input type="checkbox" data-id="natural" class="checkbox">
+          </div>
+          <div class="check-col">
+            <label> Religious: </label>  
+            <input type="checkbox" data-id="religion" class="checkbox">    
+          </div>
+        </div>
+        <div class="check-row">
+          <div class="check-col">
+            <label> Sport: </label>  
+            <input type="checkbox" data-id="sport" class="checkbox">
+          </div>
+          <div class="check-col">
+            <label> Facilities:  </label>  
+            <input type="checkbox" data-id="tourist_facilities" class="checkbox"> 
+          </div>   
+        </div>
+
+        <div class="check-row">
+
+          <label>Days Staying:</label>
+          <input type="number" min="1" data-id="time-stayed">
+        </div>
+
+        <label>Look for Accomodation?</label>
+        <input type="checkbox" data-id="accomodation" class="checkbox">
+
+
+
+
+      </form>
+    </aside>
+
+    <main>
+      <div id="map"></div>
+      <form id="map-form">
+        <button class="random-btn">Random</button>
+        <input type="text" class="search-field">
+        <input type="submit" class="submit-btn">
+      </form>
       
-      <div id="map">
-        <h2>Map goes here</h2>
-      </div>
-      
-      <button id="submit">Submit</button>
+    </main>
+  </div>
+</div>
 
-      <button id="random">Randomiser</button>
 
+<div class="popup-container" style="display: none;">
+  <div class="popup">
+    <p>Select ______?</p>
+    <div class="buttons">
+      <button class="accept-btn">Yes</button>
+      <button class="deny-btn">No</button>
     </div>
-  </main>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="./assets/js/config.js"></script>
+  </div>
+</div>
+  
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeQECNe3YFYAGais5TDXFcavkOKkdQEGo&libraries=places&callback=initMap"
+  async
+  ></script>
+  
   <script src="./assets/js/script.js"></script>
+
 </body>
 </html>
