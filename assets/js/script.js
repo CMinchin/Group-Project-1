@@ -19,6 +19,25 @@ const citiesList = [
   "Paris","New York","Sydney","Barcelona","London","Rome","San Francisco","Bangkok", "Cape Town", "Istanbul", "Melbourne" ,"Hong Kong","Kathmandu","Prague","Vancouver","Buenos Aires","Rio De Janeiro","Berlin","Jerusalem","Montreal","Edinburgh","Venice","Hanoi","Amsterdam","Singapore","Tokyo","Florence","Dublin","Mexico City","Krakow","Toronto","Cairo","Budapest","Chicago","Havana","Madrid","Munich","Athens","New Orleans","Vienna","Ho Chi Minh City","Marrakesh","Sarajevo","Seville","Kyoto","Las Vegas","Perth","Shanghai","Los Angeles","Lisbon","Stockholm","Kuala Lumpur","Damascus","Luang Prabang","Seattle","Phnom Penh","S Petersburg","Cuzco","Delhi","Dubrovnik","Moscow","Salvador Da Bahia","Beijing","Helsinki","Kolkata","Santiago","Fes","Auckland","Manila","Puerto Vallarta","Chiang Mai","Varanasi","Cartagena","Zanzibar","Innsbruck","York","Mumbai","Hamburg","Oaxaca","Galway","Siena","Ifahan","Wellington","Ljubljana","Seoul","San Cristobal","Taipei","Tallinn","Lhasa","Bled","Hobart","Jaipur","Brussels","La Paz","Quebec City","Valparaiso","Naples","Memphis","Heidelberg","Dhaka","Amman","Monaco","Washington","Quito","Christchurch","Glasgow","Muscat","Panama City","Dakar","Bratislava","San Sebastian","Bern","San Juan","Aleppo","Dubai","Riga","Asmara","Kabul","Bath","Copenhagen","Macau","Sofia","Hoi An","Marseille","Zagreb","Manchester","Antigua","Reykjavik","Yogyakarta","Carcassone","Lubeck","Tel Aviv","Hiroshima","Mendoza","Nairobi","Beirut","Vilnius","Montevideo","Yangon","Arequipa","Bucharest","Apia","Belgrade","Dar Es Salaam","Kiev","Bukhara","Male","Caracas","Tirana","Suva","Tbilisi","Agadez","Ushuaia","Kampala","Bogota","Bridgetown","Ulaanbaatar","Abuja","Laval","Sanaa","Livingstone","Alexandria","Belfast","Savannah","Nuuk","Jeddah","Johannesburg","Kairouan","Austin","San Salvador","Cardiff","Minsk","Thimphu","Khartoum","Anchorage","Mecca","Aswan","Yerevan","Luxembourg","Georgetown","Maputo","Baku","Belize City","Essaouira","Santo Domingo","Addis Ababa, Ethiopia","Pyongyang","Lahore","Cayenne","Almaty","Mombasa","Valletta","Antananarivo","Miami","Bamako","Saint-Denis","Granada","Beira","Madang","Ashgabat"
 ]
 
+const filterList = document.querySelectorAll(".checkbox")
+const accCheck = document.querySelector(".acc-checkbox")
+const timeStayed = document.querySelector('[data-id="time-stayed"]')
+
+const startupContainer = document.querySelector(".startup-container")
+const startup = document.querySelector(".startup")
+const aweBtn = document.querySelector(".awe-btn")
+
+let startUpStatus = "on"
+
+if (localStorage.getItem("startUp") !== null && localStorage.getItem("startUp") === "off") {
+  startupContainer.style = "display:none;"
+}
+
+aweBtn.addEventListener("click", function(){
+  startupContainer.style = "display:none;"
+  startUpStatus = "off"
+  localStorage.setItem("startUp", startUpStatus)
+})
 
 function popupConfirm(location) {
   popupContainer.style.display = "flex";
@@ -76,7 +95,8 @@ function initMap() {
   let options = {
     types: ['(cities)']
   }
-  new google.maps.places.Autocomplete(searchField, options)
+  let autoComplete = new google.maps.places.Autocomplete(searchField, options)
+  autoComplete.setFields(['localities'])
 
   // Random Generation
 
@@ -120,15 +140,25 @@ function initMap() {
   })
 }
 
+function getFilters() {
+  let filterChecks = []
+  for (let i = 0; i < filterList.length; i++) {
+    if (filterList[i].checked === true)
+    filterChecks.push(filterList[i].dataset.id)
+  }
+  return filterChecks 
+}
+
 submitBtn.addEventListener("click", function(event){
   event.preventDefault()
-  let submitCity = "perth"
-  let submitFilters = "cultural+amusements"
-  let submitAcc = true
-  let submitTime = 15
+  let submitCity = searchField.value.split(",")[0].toLowerCase().replace(/ /g, '+')
+  let submitFilters = getFilters().toString().replace(/,/g, '%2C');
+  let submitAcc = accCheck.checked
+  let submitTime = timeStayed.value
 
 
-
-  window.location.href = "destination.html?q=" + submitCity + "&filter=" + submitFilters + "&acc=" + submitAcc + "&time=" + submitTime
+  if (submitCity) {
+    window.location.href = "destination.html?q=" + submitCity + "&filter=" + submitFilters + "&acc=" + submitAcc + "&time=" + submitTime
+  }
 })
   
