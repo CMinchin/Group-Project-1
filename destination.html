@@ -4,37 +4,70 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Destination</title>
   <link rel="stylesheet" href="./assets/css/destination.css">
+  <title></title>
 </head>
 <body>
-  
-  <header>
-    <h1>Your City</h1>
-  </header>
+<div id = "wrapper">
+    <main id = "inner-wrapper">
+      <header>
+        <button class="back-btn">Back</button>
+        <h1 id="city-name"></h1>
+        <button class="refresh-btn">Refresh</button>
+      </header>
+      
+      
+      <section class="main-city-info">
+        <article class="main-info">
+          <div id="city-info">
+            <div class="col-img">
 
-  <main>
-    <div id="main-container">
-      <div id="map">
-        <img src="Placeholder Map">
-      </div>
-      <div id="right">
-        <h3>City Name</h3>
-        <p id="desc"><br><br> sample text/ description of city</p>
-        <p>picture of the city idk depends on whats on the left</p>
-      </div>
+            </div>
+            <div class="col-info">
+              <div class="info-box"></div>
+            </div>
+          </div>
+        </article>
+        <div class="main-col">
+          <article class="side-info top-pad">
+            <div class="pop-info">
+              <div class="graph">
+                <div class="bar small"></div>
+                <div class="bar mid"></div>
+                <div class="bar large"></div>
+              </div>
+            </div>
+          </article>
+          <article class="side-info bot-pad">
+            <div class="weather-info">
+              <p class="temp">Temp: </p>
+              <p class="wind">Wind: </p>
+              <p class="humidity">Humidity: </p>
+              <div>
+                <p class="uv">UV Index: </p>
+                <span></span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
 
-    </div>
+      <section class="attraction-info">
+        <article id="list-holder">
+          <!-- list of attractions added here -->
+        </article>
+      </section>
+    </main>
+</div>
 
-    <div id="city-cards">
-      <h2>Great Shit to Do</h2>
-      <div id="city-cards-div"></div>
-    </div>
+<div class="popup-container" style="display: flex;">
+  <div class="dot an1"></div>
+  <div class="dot an2"></div>
+  <div class="dot an3"></div>
+</div>
 
-  </main>
 
-  
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="./assets/js/destination.js"></script>
+<script src="./assets/js/destination.js"></script>
 </body>
+</html>
 </html>
