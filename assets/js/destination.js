@@ -17,7 +17,7 @@ addTile("Go Skiing","lorem ipsum","https://upload.wikimedia.org/wikipedia/common
 
 var queries = {_:null}
 
-document.location.href.split("?")[1].split(",").forEach(e => {
+document.location.href.split("?")[1].split("&").forEach(e => {
     queries[e.split("=")[0]] = e.split("=")[1]
 })
 
@@ -26,7 +26,7 @@ if (queries._==null) {
 }
 
 fetch(
-    "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exchars=10000&explaintext&titles=" + queries.city + "&origin=*"
+    "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exchars=10000&explaintext&titles=" + queries.q + "&origin=*"
   )
     .then(function (res) {
       console.log(res);
