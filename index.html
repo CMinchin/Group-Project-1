@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <link rel="stylesheet" href="./assets/css/style.css"></link> -->
-  <link rel="stylesheet" href="./assets/css/maps.css"></link>
+  <link rel="stylesheet" href="./assets/css/style.css"></link>
   
   <title>Fun in the City</title>
 </head>
@@ -17,93 +17,99 @@
 
 <div class="wrapper">
   <div class="inner-wrapper">
-
-    <aside>
-      <form>
-        <!-- 
-          Categories We Can Use:
-          Time Spent (Slider)
-          Accomodation (On/Off)
-          Atractions Type 
-        -->
-        <h3>Filters:</h3>
-
-        <label>Include these attractions:</label>
-        <div class="check-row">
-          <div class="check-col">
-            <label> Adult: </label>  
-            <input type="checkbox" data-id="adult" class="checkbox">
+    <header>
+      <h1 id="city-name">Fun in the City!</h1>
+    </header>
+    <div class="col">
+      <aside>
+        <form>
+          <!-- 
+            Categories We Can Use:
+            Time Spent (Slider)
+            Accomodation (On/Off)
+            Atractions Type 
+          -->
+          <h3>Filters</h3>
+  
+          <label >Include these attractions:</label>
+          <div class="check-row" style="margin-top: 10px;">
+            <div class="check-col">
+              <label> Adult: </label>  
+              <input type="checkbox" data-id="adult" class="checkbox" checked="true">
+            </div>
+            <div class="check-col">
+              <label> Amusements: </label>  
+              <input type="checkbox" data-id="amusements" class="checkbox" checked="true">  
+            </div>  
           </div>
-          <div class="check-col">
-            <label> Amusements: </label>  
-            <input type="checkbox" data-id="amusements" class="checkbox">  
-          </div>  
-        </div>
-        <div class="check-row">
-          <div class="check-col">
-            <label> Architecture: </label>  
-            <input type="checkbox" data-id="architecture" class="checkbox">
+          <div class="check-row">
+            <div class="check-col">
+              <label> Architecture: </label>  
+              <input type="checkbox" data-id="architecture" class="checkbox" checked="true">
+            </div>
+            <div class="check-col">  
+              <label> Cultural: </label>  
+              <input type="checkbox" data-id="cultural" class="checkbox" checked="true">    
+            </div>
           </div>
-          <div class="check-col">  
-            <label> Cultural: </label>  
-            <input type="checkbox" data-id="cultural" class="checkbox">    
+          <div class="check-row">
+            <div class="check-col">
+              <label> Historical: </label>  
+              <input type="checkbox" data-id="historic" class="checkbox" checked="true">
+            </div>
+            <div class="check-col">
+              <label> Industrial: </label>  
+              <input type="checkbox" data-id="industrial_facilities" class="checkbox" checked="true"> 
+            </div>   
           </div>
-        </div>
-        <div class="check-row">
-          <div class="check-col">
-            <label> Historical: </label>  
-            <input type="checkbox" data-id="historic" class="checkbox">
+          <div class="check-row">
+            <div class="check-col">
+              <label> Natural: </label>  
+              <input type="checkbox" data-id="natural" class="checkbox" checked="true">
+            </div>
+            <div class="check-col">
+              <label> Religious: </label>  
+              <input type="checkbox" data-id="religion" class="checkbox" checked="true">    
+            </div>
           </div>
-          <div class="check-col">
-            <label> Industrial: </label>  
-            <input type="checkbox" data-id="industrial_facilities" class="checkbox"> 
-          </div>   
-        </div>
-        <div class="check-row">
-          <div class="check-col">
-            <label> Natural: </label>  
-            <input type="checkbox" data-id="natural" class="checkbox">
+          <div class="check-row">
+            <div class="check-col">
+              <label> Sport: </label>  
+              <input type="checkbox" data-id="sport" class="checkbox" checked="true">
+            </div>
+            <div class="check-col">
+              <label> Facilities:  </label>  
+              <input type="checkbox" data-id="tourist_facilities" class="checkbox" checked="true"> 
+            </div>   
           </div>
-          <div class="check-col">
-            <label> Religious: </label>  
-            <input type="checkbox" data-id="religion" class="checkbox">    
+  
+          <div class="check-row" style="margin-top: 10px;">
+  
+            <label>Vacation Length:</label>
+            <input type="number" min="1" data-id="time-stayed" value="7">
           </div>
-        </div>
-        <div class="check-row">
-          <div class="check-col">
-            <label> Sport: </label>  
-            <input type="checkbox" data-id="sport" class="checkbox">
+          <div class="check-row" style="margin-top: 10px;">
+            <label>Look for Accomodation?</label>
+            <input type="checkbox" data-id="accomodation" class="acc-checkbox">
           </div>
-          <div class="check-col">
-            <label> Facilities:  </label>  
-            <input type="checkbox" data-id="tourist_facilities" class="checkbox"> 
-          </div>   
-        </div>
+  
+  
+  
+  
+        </form>
+      </aside>
+  
+      <main>
+        <div id="map"></div>
+        <form id="map-form">
+          <button class="random-btn">Random</button>
+          <input type="text" class="search-field">
+          <input type="submit" class="submit-btn">
+        </form>
+        
+      </main>
 
-        <div class="check-row">
-
-          <label>Days Staying:</label>
-          <input type="number" min="1" data-id="time-stayed">
-        </div>
-
-        <label>Look for Accomodation?</label>
-        <input type="checkbox" data-id="accomodation" class="checkbox">
-
-
-
-
-      </form>
-    </aside>
-
-    <main>
-      <div id="map"></div>
-      <form id="map-form">
-        <button class="random-btn">Random</button>
-        <input type="text" class="search-field">
-        <input type="submit" class="submit-btn">
-      </form>
-      
-    </main>
+    </div>
   </div>
 </div>
 
@@ -117,7 +123,20 @@
     </div>
   </div>
 </div>
-  
+
+<div class="startup-container" style="display: flex;">
+  <div class="startup">
+
+     <h3>Fun in the City!</h3> 
+      Welcome to the Vacation Generator. In order to use the generator, choose the filters that are applicable to you, and select a city.
+      <br><br>
+      You can select through our specially curated list of markers on the map, or go off in the deep end and choose whatever city you like!
+      <br><br>
+    </p>
+    <button class="awe-btn">Start!</button>
+  </div>
+</div>
+
   <script
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeQECNe3YFYAGais5TDXFcavkOKkdQEGo&libraries=places&callback=initMap"
   async
